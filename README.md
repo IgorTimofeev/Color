@@ -1,103 +1,100 @@
-
-О библиотеке
-======
-Color - библиотека для работы с цветом. Она позволяет осуществлять экструзию и упаковку цветовых каналов, преобразовывать цветовую модель RGB в HSB и наоборот, осуществлять альфа-блендинг, генерировать цветовые переходы и конвертировать цвет в 8-битный формат для палитры OpenComputers.
-
-Установка
+About
 ======
 
-Исходный код доступен по ссылке: https://github.com/IgorTimofeev/OpenComputers/blob/master/lib/color.lua
+This is library for color manipulations. It allows you to extrude and pack color channels, convert the RGB color model to HSB and vice versa, perform alpha blending, generate color transitions and convert the color to 8-bit format for the OpenComputers palette.
 
-Для загрузки на компьютер вы можете воспользоваться стандартной утилитой **wget**:
-
-    wget https://raw.githubusercontent.com/IgorTimofeev/OpenComputers/master/lib/color.lua -f
-
-Работа с цветовыми каналами
+Installation
 ======
 
-color.**RGBToInteger**( red, green, blue ): *int* IntegerColor
+Source code is available [here](https://github.com/IgorTimofeev/Color/blob/master/lib/Color.lua): You can download library to computer via single command:
+
+    wget https://github.com/IgorTimofeev/Color/blob/master/lib/Color.lua /lib/color.lua -f
+
+Working with color channels
+======
+
+color.**RGBToInteger**( red, green, blue ): *int* integerColor
 -----------------------------------------------------------
-| Тип | Аргумент | Описание |
+| Type | Parameter | Description |
 | ------ | ------ | ------ |
-| *byte* **[0; 255]** | red | Красный цветовой канал |
-| *byte* **[0; 255]** | green | Зеленый цветовой канал |
-| *byte* **[0; 255]** | blue | Синий цветовой канал |
+| *byte* **[0; 255]** | red | Red color channel |
+| *byte* **[0; 255]** | green | Green color channel |
+| *byte* **[0; 255]** | blue | Blue color channel |
 
-Метод упаковывает три цветовых канала и возвращает 24-битную целочисленную переменную
+The method packages three color channels and returns a 24-bit integer variable
 
-color.**integerToRGB**( IntegerColor ): *byte* red, *byte* green, *byte* blue
+color.**integerToRGB**( integerColor ): *byte* red, *byte* green, *byte* blue
 -----------------------------------------------------------
-| Тип | Аргумент | Описание |
+| Type | Parameter | Description |
 | ------ | ------ | ------ |
-| *int*  | IntegerColor | Цвет в формате 0xRRGGBB |
+| *int*  | integerColor | Color in 0xRRGGBB format |
 
-Метод извлекает и возвращает три цветовых канала из 24-битной целочисленной переменной. Значения возвращаемых данных находятся в диапазоне [0; 255]
+The method extrudes three color channels from a 24-bit integer variable. The values of the returned data are in the range **[0; 255]**
 
-Обработка цвета
+Color processing
 ======
 
 color.**blend**( firstColor, secondColor, secondColorTransparency ): *int* blendedColor
 -----------------------------------------------------------
-| Тип | Аргумент | Описание |
+| Type | Parameter | Description |
 | ------ | ------ | ------ |
-| *int* | firstColor | Первый цвет |
-| *int* | secondColor | Второй цвет |
-| *float* **[0.0; 1.0]** | secondColorTransparency | Прозрачность второго цвета при наложении |
+| *int* | firstColor | First color |
+| *int* | secondColor | Second color |
+| *float* **[0.0; 1.0]** | secondColorTransparency | Second color transparency |
 
-Метод накладывает второй цвет на первый, учитывая прозрачность второго. К примеру, если на красный цвет 0xFF0000 наложить черный цвет 0x000000 с прозрачностью 0.5, то в результате получится цвет 0x7F0000, то есть, темно-красный
+Mix two colors considering the transparency of the second color. For example, if you perform this operation on 0xFF0000 and 0x000000 colors with a **0.5** transparency of second one, the result will be 0x7F0000 (dark red)
 
 color.**transition**( firstColor, secondColor, position ): *int* transitionColor
 -----------------------------------------------------------
-| Тип | Аргумент | Описание |
+| Type | Parameter | Description |
 | ------ | ------ | ------ |
-| *int* | firstColor | Первый цвет |
-| *int* | secondColor | Второй цвет |
-| *float* **[0.0; 1.0]** | position | Позиция точки перехода от первого цвета ко второму |
+| *int* | firstColor | First color |
+| *int* | secondColor | Second color |
+| *float* **[0.0; 1.0]** | position | Position of transition point from first color to second |
 
-Метод генерирует переходный цвет между первым и вторым цветом, основываясь на аргументе transition, где значение 0.0 эквивалентно первому цвету, а 1.0 - второму. К примеру, если осуществить переход от черного цвета 0x000000 к белому 0xFFFFFF с позицией перехода 0.5, то в результате получится цвет 0x7F7F7F, то есть, серый.
+The method generates a transitive color between first and second ones, based on the transition argument, where the value 0.0 is equivalent to the first color, and 1.0 is the second color. For example, if you perform this operation on 0x000000 and 0xFFFFFF colors with transition position equals 0.5, then the result will be 0x7F7F7F (gray)
 
-Преобразование цветовых моделей
+Conversion of color models
 ======
 
 color.**RGBToHSB**( red, green, blue ): *int* hue, *float* saturation, *float* brightness
 -----------------------------------------------------------
-| Тип | Аргумент | Описание |
+| Type | Parameter | Description |
 | ------ | ------ | ------ |
-| *byte* **[0; 255]** | red | Красный цветовой канал |
-| *byte* **[0; 255]** | green | Зеленый цветовой канал |
-| *byte* **[0; 255]** | blue | Синий цветовой канал |
+| *byte* **[0; 255]** | red | Red color channel |
+| *byte* **[0; 255]** | green | Green color channel |
+| *byte* **[0; 255]** | blue | Blue color channel |
 
-Метод преобразует три цветовых канала цветовой модели RGB в цветовую модель HSB (HSV) и возвращает соответствующий результат. Значения возвращаемых данных *hue* находится в диапазоне [0; 360], а *saturation* и *brightness* - в диапазоне [0.0; 1.0].
+The method converts three color channels of the RGB color model to the HSB (HSV) color model and returns the corresponding result. The returned *hue* value is in the range **[0; 360]**, and *saturation* and *brightness* - in the range **[0.0; 1.0]**.
 
-Для удобства также имеется метод color.**integerToHSB**(*int* integerColor): *int* hue, *float* saturation, *float* brightness
+For convenience, there is also a method color.**integerToHSB**(*int* integerColor): *int* hue, *float* saturation, *float* brightness
 
 color.**HSBToRGB**( hue, saturation, brightness ): *byte* red, *byte* green, *byte* blue
 -----------------------------------------------------------
-| Тип | Аргумент | Описание |
+| Type | Parameter | Description |
 | ------ | ------ | ------ |
-| *int* **[0; 360]** | hue | Оттенок |
-| *float* **[0.0; 1.0]** | saturation | Насыщенность |
-| *float* **[0.0; 1.0]** | brightness | Яркость |
+| *int* **[0; 360]** | hue | Hue |
+| *float* **[0.0; 1.0]** | saturation | Saturation |
+| *float* **[0.0; 1.0]** | brightness | Brightness |
 
-Метод преобразует параметры цветовой модели HSB (HSV) в три цветовых канала модели RGB и возвращает соответствующий результат.
+The method converts the parameters of the HSB color model (HSV) into three color channels of the RGB model and returns the corresponding result.
+For convenience, there is also a method color.**HSBToInteger**(*int* hue, *float* saturation, *float* brightness): *int* integerColor
 
-Для удобства также имеется метод color.**HSBToInteger**(*int* hue, *float* saturation, *float* brightness): *int* integerColor
-
-Компрессия цвета
+Color compression
 ======
 
 color.**to8Bit**( 24BitColor ): *byte* 8BitColor
 -----------------------------------------------------------
-| Тип | Аргумент | Описание |
+| Type | Parameter | Description |
 | ------ | ------ | ------ |
-| *int* | 24BitColor | Цвет в формате 0xRRGGBB  |
+| *int* | 24BitColor | Color in 0xRRGGBB format |
 
-Метод обращается к 256-цветной палитре OpenComputers и возвращает индекс цвета, наилучшим образом соответствующего переданному значению, используя тот же метод поиска, что и в gpu.**setBackground**(color). В результате возвращается переменная в диапазоне [0; 255], которая может быть использована для записи в бинарный файл, позволяя экономить память. Обращаю внимание, что метод медленный, и не подходит для отрисовки графики на экране.
+This method refers to 256-color OpenComputers palette and returns the color index that best matches the passed value using the same search method as in gpu.**setBackground**(color) do. As a result, a variable is returned in the range [0; 255], which can be used to write to a binary file, allowing you to save extra memory. I draw your attention that the method is quite **slow**, and is not suitable for drawing graphics on the screen in realtime.
 
 color.**to24Bit**( 8BitColor ): *int* 24BitColor
 -----------------------------------------------------------
-| Тип | Аргумент | Описание |
+| Type | Parameter | Description |
 | ------ | ------ | ------ |
-| *int* | 8BitColor | Индекс палитры OpenComputers  |
+| *int* | 8BitColor | Index of OpenComputers palette |
 
-Метод позволяет осуществить обратное преобразование 8-битного индекса, созданного методом color.**to8Bit**.
+The method allows you to convert the 8-bit index created by the color.**to8Bit** method to 24 bit integer color value
